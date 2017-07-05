@@ -3,9 +3,11 @@ stages:
 
 before_script:
    - echo "Before script section"
+   - find .
 
 after_script:
   - echo "After script section"
+  - find .
 
 docker-clone:
  stage: test
@@ -16,5 +18,5 @@ docker-clone:
    - pwd
    - ls -al
    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.uk.cambridgeconsultants.com/p3115/runner-test.git runner-test-clone
-   - (git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.uk.cambridgeconsultants.com/smokey/sandpit-ci.git smokey-sandpit && exit 1) || exit 0
+   - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.uk.cambridgeconsultants.com/smokey/sandpit-ci.git smokey-sandpit; test $? -ne 0
    - echo "OK"
